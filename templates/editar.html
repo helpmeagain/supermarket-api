@@ -8,16 +8,16 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-    <title>Editar cliente</title>
+    <title>Editar produto</title>
   </head>
   <body>
     {% include 'includes/navbar.html' %}
     <div class="container-primary">
-      <h1>Editar cliente</h1>
+      <h1>Editar produto</h1>
       <div class="container-form">
         <form
           method="POST"
-          action="{{ url_for('editar', id=cliente.id) }}"
+          action="{{ url_for('editar', id=produto.id) }}"
           class="form"
         >
           <label for="nome">Nome:</label>
@@ -25,16 +25,16 @@
             type="text"
             id="nome"
             name="nome"
-            value="{{ cliente.nome }}"
+            value="{{ produto.nome }}"
             required
           />
 
-          <label for="cpf">CPF:</label>
+          <label for="categoria">Categoria:</label>
           <input
             type="text"
-            id="cpf"
-            name="cpf"
-            value="{{ cliente.cpf }}"
+            id="categoria"
+            name="categoria"
+            value="{{ produto.categoria }}"
             required
           />
 
@@ -43,7 +43,7 @@
             id="nascimento"
             type="date"
             name="nascimento"
-            value="{{ cliente.nascimento }}"
+            value="{{ produto.nascimento }}"
           />
 
           <label for="email">E-mail:</label>
@@ -51,7 +51,7 @@
             type="email"
             id="email"
             name="email"
-            value="{{ cliente.email }}"
+            value="{{ produto.email }}"
             required
           />
 
@@ -60,7 +60,7 @@
             type="tel"
             id="telefone"
             name="telefone"
-            value="{{ cliente.telefone }}"
+            value="{{ produto.telefone }}"
             required
           />
           <div class="container-button">

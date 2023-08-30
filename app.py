@@ -5,16 +5,16 @@ app = Flask(__name__)
 
 
 # Criando o banco
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///produtos.db'
 db = SQLAlchemy(app)
 
-class Cliente(db.Model):
+class produto(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String(100))
-  cpf = db.Column(db.String(11))
-  nascimento = db.Column(db.String(11))
-  email = db.Column(db.String(100))
-  telefone = db.Column(db.String(20))
+  fabricante = db.Column(db.String(11))
+  categoria = db.Column(db.String(11))
+  quantidade = db.Column(db.String(100))
+  preço = db.Column(db.String(20))
 
 # Rota inicial
 @app.route('/')
@@ -26,69 +26,69 @@ def index():
 def cadastro():
   if request.method == 'POST':
     nome = request.form['nome']
-    cpf = request.form['cpf']
-    email = request.form['email']
-    telefone = request.form['telefone']
-    nascimento = request.form['nascimento']
+    fabricante = request.form['fabricante']
+    categoria = request.form['categoria']
+    quantidade = request.form['quantidade']
+    preço = request.form['preço']
 
-    cliente = Cliente(
+    produto = Produto(
       nome=nome,
-      email=email,
-      telefone=telefone,
-      cpf=cpf,
-      nascimento=nascimento
+      fabricante=fabricante,
+      categoria=categoria,
+      quantidade=quantidade,
+      preço=preço
     )
 
-    db.session.add(cliente)
+    db.session.add(produto)
     db.session.commit()
 
-    return redirect(url_for('clientes'))
+    return redirect(url_for('produtos'))
   else:
     return render_template('cadastro.html')
 
-# Rota de clientes
-@app.route('/clientes')
-def clientes():
-  clientes = Cliente.query.all()
-  return render_template('clientes.html', clientes=clientes)
+# Rota de produtos
+@app.route('/produtos')
+def produtos():
+  produtos = Produto.query.all()
+  return render_template('produtos.html', produtos=produtos)
 
-# SObre o cliente
+# SObre o produto
 @app.route('/sobre/<int:id>')
 def sobre(id):
-  cliente = Cliente.query.get(id)
-  return render_template('sobre.html', cliente=cliente)
+  produto = produto.query.get(id)
+  return render_template('sobre.html', produto=produto)
 
-# Alterar ou excluir cliente
+# Alterar ou excluir produto
 @app.route('/alteracao/<int:id>')
 def alteracao(id):
-  cliente = Cliente.query.get(id)
-  return render_template('alteracao.html', cliente=cliente)
+  produto = Produto.query.get(id)
+  return render_template('alteracao.html', produto=produto)
 
-# Editar cliente
+# Editar produto
 @app.route('/alteracao/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
-    cliente = Cliente.query.get(id)
+    produto = Produto.query.get(id)
     if request.method == 'POST':
-        cliente.nome = request.form['nome']
-        cliente.cpf = request.form['cpf']
-        cliente.email = request.form['email']
-        cliente.telefone = request.form['telefone']
-        cliente.nascimento = request.form['nascimento']
+        produto.nome = request.form['nome']
+        produto.fabricante = request.form['fabricante']
+        produto.categoria = request.form['categoria']
+        produto.quantidade = request.form['quantidade']
+        produto.preço = request.form['preço']
         db.session.commit()
-        return redirect(url_for('clientes'))
+        return redirect(url_for('produtos'))
     else:
-        return render_template('editar.html', cliente=cliente)
+        return render_template('editar.html', produto=produto)
 
-# Excluir o cliente
+# Excluir o produto
 @app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
 def excluir(id):
-  cliente = Cliente.query.get(id)
-  if cliente:
-    db.session.delete(cliente)
+  produto = Produto.query.get(id)
+  if produto:
+    db.session.delete(produto)
     db.session.commit()
-    return redirect(url_for('clientes'))
+    return redirect(url_for('produtos'))
   else:
-    return render_template('clientes.html')
+    return render_template('produtos.html')
 
 if __name__ == '__main__':
   with app.app_context():
