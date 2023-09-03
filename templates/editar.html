@@ -29,40 +29,41 @@
             required
           />
 
-          <label for="categoria">Categoria:</label>
+          <label for="fabricante">Fabricante:</label>
           <input
             type="text"
-            id="categoria"
-            name="categoria"
-            value="{{ produto.categoria }}"
+            id="fabricante"
+            name="fabricante"
+            value="{{ produto.fabricante }}"
             required
           />
 
-          <label for="nascimento">Data nascimento</label>
+          <label for="vencimento">Data de vencimento:</label>
           <input
-            id="nascimento"
             type="date"
-            name="nascimento"
-            value="{{ produto.nascimento }}"
-          />
-
-          <label for="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value="{{ produto.email }}"
+            id="vencimento"
+            name="vencimento"
+            value="{{ produto.vencimento }}"
             required
           />
 
-          <label for="telefone">Telefone:</label>
+          <label for="quantidade">Quantidade</label>
           <input
-            type="tel"
-            id="telefone"
-            name="telefone"
-            value="{{ produto.telefone }}"
+            id="quantidade"
+            type="number"
+            name="quantidade"
+            value="{{ produto.quantidade }}"
+          />
+
+          <label for="preco">E-Preço por unidade:</label>
+          <input
+            type="number"
+            id="preco"
+            name="preco"
+            value="{{ produto.preco }}"
             required
           />
+
           <div class="container-button">
             <button class="button-form" type="submit">Salvar</button>
           </div>
