@@ -3,8 +3,8 @@
 /* Estilização global */
 html,
 body {
-  background: rgb(26, 27, 77);
-  background: linear-gradient(180deg, rgba(26, 27, 77, 1) 32%, rgba(54, 48, 84, 1) 71%);
+  background: rgb(38,50,56);
+  background: linear-gradient(90deg, rgba(38,50,56,1) 0%, rgba(148,187,233,1) 100%);
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
