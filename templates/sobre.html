@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,24 +20,24 @@
           <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>CPF</th>
-            <th>Nascimento</th>
-            <th>Email</th>
-            <th>Telefone</th>
+            <th>Fabricante</th>
+            <th>Data de vencimento</th>
+            <th>Quantidade</th>
+            <th>Preço por unidade</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nome }}</td>
-            <td>{{ cliente.cpf }}</td>
-            <td>{{ cliente.nascimento }}</td>
-            <td>{{ cliente.email }}</td>
-            <td>{{ cliente.telefone }}</td>
+            <td>{{ produto.id }}</td>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.fabricante }}</td>
+            <td>{{ produto.vencimento }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>{{ produto.preco }}</td>
             <td>
-              <a href="/alteracao/{{cliente.id}}"
+              <a href="/alteracao/{{produto.id}}"
                 ><button class="button-table">Alterar</button></a
               >
             </td>

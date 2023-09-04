@@ -21,7 +21,7 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Fabricante</th>
-            <th>Categoria</th>
+            <th>Vencimento</th>
             <th>Quantidade</th>
             <th>Preço</th>
             <th></th>
@@ -33,9 +33,9 @@
             <td>{{ produto.id }}</td>
             <td>{{ produto.nome }}</td>
             <td>{{ produto.fabricante }}</td>
-            <td>{{ produto.categoria }}</td>
+            <td>{{ produto.vencimento }}</td>
             <td>{{ produto.quantidade }}</td>
-            <td>{{ produto.preço }}</td>
+            <td>{{ produto.preco }}</td>
             <td>
               <a href="/alteracao/editar/{{produto.id}}"
                 ><button class="button-table">Editar</button></a
