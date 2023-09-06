@@ -1,112 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from flask_restful import Api
+from models import db, ma 
+from resources import CategoryResource, ManufacturerResource, ProductResource
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+api = Api(app)
+db.init_app(app)
+ma.init_app(app)
 
+api.add_resource(CategoryResource, '/categories', '/categories/<int:category_id>')
+api.add_resource(ManufacturerResource, '/manufacturers', '/manufacturers/<int:manufacturer_id>')
+api.add_resource(ProductResource, '/products', '/products/<int:product_id>')
 
-# Criando o banco
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///produtos.db'
-db = SQLAlchemy(app)
-
-
-class Produto(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100))
-    fabricante = db.Column(db.String(11))
-    vencimento = db.Column(db.String(11))
-    quantidade = db.Column(db.String(100))
-    preco = db.Column(db.String(20))
-
-# Rota inicial
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-# Roda de cadastro
-
-
-@app.route('/cadastro', methods=['GET', 'POST'])
-def cadastro():
-    if request.method == 'POST':
-        nome = request.form['nome']
-        fabricante = request.form['fabricante']
-        vencimento = request.form['vencimento']
-        quantidade = request.form['quantidade']
-        preco = request.form['preco']
-
-        produto = Produto(
-            nome=nome,
-            fabricante=fabricante,
-            vencimento=vencimento,
-            quantidade=quantidade,
-            preco=preco
-        )
-
-        db.session.add(produto)
-        db.session.commit()
-
-        return redirect(url_for('produtos'))
-    else:
-        return render_template('cadastro.html')
-
-# Rota de produtos
-
-
-@app.route('/produtos')
-def produtos():
-    produtos = Produto.query.all()
-    return render_template('produtos.html', produtos=produtos)
-
-# SObre o produto
-
-
-@app.route('/sobre/<int:id>')
-def sobre(id):
-    produto = Produto.query.get(id)
-    return render_template('sobre.html', produto=produto)
-
-# Alterar ou excluir produto
-
-
-@app.route('/alteracao/<int:id>')
-def alteracao(id):
-    produto = Produto.query.get(id)
-    return render_template('alteracao.html', produto=produto)
-
-# Editar produto
-
-
-@app.route('/alteracao/editar/<int:id>', methods=['GET', 'POST'])
-def editar(id):
-    produto = Produto.query.get(id)
-    if request.method == 'POST':
-        produto.nome = request.form['nome']
-        produto.fabricante = request.form['fabricante']
-        produto.vencimento = request.form['vencimento']
-        produto.quantidade = request.form['quantidade']
-        produto.preco = request.form['preco']
-        db.session.commit()
-        return redirect(url_for('produtos'))
-    else:
-        return render_template('editar.html', produto=produto)
-
-# Excluir o produto
-
-
-@app.route('/alteracao/excluir/<int:id>', methods=['GET', 'POST'])
-def excluir(id):
-    produto = Produto.query.get(id)
-    if produto:
-        db.session.delete(produto)
-        db.session.commit()
-        return redirect(url_for('produtos'))
-    else:
-        return render_template('produtos.html')
-
+with app.app_context():
+  db.create_all()
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        app.run(debug=True)
+  app.run(debug=True)
