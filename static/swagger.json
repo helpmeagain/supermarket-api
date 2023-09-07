@@ -1,0 +1,554 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Supermarket API",
+    "description": "This is a supermarket API. It was developed by Rubens Lima, Felipe Marques, Jhon Wesley and Anderson Menezes.",
+    "contact": {
+      "name": "Support",
+      "email": "felipe.comarques1208@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Everything about products"
+    },
+    {
+      "name": "Category",
+      "description": "Everything about categories"
+    },
+    {
+      "name": "Manufacture",
+      "description": "Everything about manufacturers"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Retrieves all products",
+        "description": "Retrieves all products.",
+        "responses": {
+          "200": {
+            "description": "Registered products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProduct"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error when searching for tutors"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Create new product",
+        "summary": "Create a new product",
+        "requestBody": {
+          "description": "Data needed to create the product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCreateProduct"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created a product.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProduct"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to create product"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Updates a product",
+        "description": "Update product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a specific product",
+            "required": true,
+            "type": "number",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "description": "Data needed to update the tutor",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyUpdateProduct"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated a tutor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ResponseProduct"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Update failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Delete a product",
+        "summary": "Deletes a product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a specific product.",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted"
+          },
+          "400": {
+            "description": "Error deleting"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Retrieves all categories",
+        "description": "Retrieves all categories.",
+        "responses": {
+          "200": {
+            "description": "Registered categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProduct"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error when searching for categories"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Create a new category",
+        "summary": "Create a new category",
+        "requestBody": {
+          "description": "Data needed to create the category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCreateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created a category.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to create a category."
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Updates a category",
+        "summary": "Updates a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a category.",
+            "required": true,
+            "type": "number",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "description": "Data needed to update the category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyUpdateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated a category.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ResponseCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to update a category."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Delete a category",
+        "summary": "Deletes a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a specific category.",
+            "required": true,
+            "type": "number",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted"
+          },
+          "400": {
+            "description": "Failed to delete a category."
+          }
+        }
+      }
+    },
+    "/manufacturers": {
+      "get": {
+        "tags": [
+          "Manufacture"
+        ],
+        "summary": "Retrieves all manufacture",
+        "description": "Retrieves all manufacture.",
+        "responses": {
+          "200": {
+            "description": "Registered Manufacture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProduct"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error when searching for Manufacture"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Manufacture"
+        ],
+        "description": "Create a new Manufacture",
+        "summary": "Create a new Manufacture",
+        "requestBody": {
+          "description": "Data needed to create the Manufacture",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCreateManufacturer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created a Manufacture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to create a Manufacture."
+          }
+        }
+      }
+    },
+    "/manufacturers/{id}": {
+      "put": {
+        "tags": [
+          "Manufacture"
+        ],
+        "description": "Updates a Manufacture",
+        "summary": "Updates a Manufacture",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a Manufacture.",
+            "required": true,
+            "type": "number",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "description": "Data needed to update the Manufacture",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyUpdateManufacturer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated a Manufacture.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ResponseCategory"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to update a Manufacture."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Manufacture"
+        ],
+        "description": "Delete a Manufacture",
+        "summary": "Deletes a Manufacture",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID belonging to a specific Manufacture.",
+            "required": true,
+            "type": "number",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted"
+          },
+          "400": {
+            "description": "Failed to delete a Manufacture."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BodyCreateProduct": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Passatempo"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price to be entered in product",
+            "example": 3.5
+          },
+          "category_id": {
+            "type": "number",
+            "description": "ID of the category of the product to be created",
+            "example": 1
+          },
+          "manufacturer_id": {
+            "type": "number",
+            "description": "ID of the manufacturer of the product to be created",
+            "example": 1
+          }
+        }
+      },
+      "BodyUpdateProduct": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Passatempo"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price to be entered in product",
+            "example": 4
+          },
+          "category_id": {
+            "type": "number",
+            "description": "ID of the category of the product to be created",
+            "example": 1
+          },
+          "manufacturer_id": {
+            "type": "number",
+            "description": "ID of the manufacturer of the product to be created",
+            "example": 1
+          }
+        }
+      },
+      "ResponseProduct": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID product",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Passatempo"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price to be entered in product",
+            "example": 3.5
+          },
+          "category_id": {
+            "type": "number",
+            "description": "ID of the category of the product to be created",
+            "example": 1
+          },
+          "manufacturer_id": {
+            "type": "number",
+            "description": "ID of the manufacturer of the product to be created",
+            "example": 1
+          }
+        }
+      },
+      "BodyCreateCategory": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Biscoito"
+          }
+        }
+      },
+      "BodyUpdateCategory": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Carne"
+          }
+        }
+      },
+      "ResponseCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID Category",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Biscoito"
+          }
+        }
+      },
+      "BodyCreateManufacturer": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Nestlé"
+          }
+        }
+      },
+      "BodyUpdateManufacturer": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title to be entered in product",
+            "example": "Bauducco"
+          }
+        }
+      }
+    }
+  }
+}
