@@ -1,7 +1,10 @@
 from flask import Flask
 from flask_restful import Api
-from models import db, ma 
-from resources import CategoryResource, ManufacturerResource, ProductResource
+from model.models import db
+from model.schemas import ma
+from controller.categoryResource import CategoryResource
+from controller.manufacturerResource import ManufacturerResource
+from controller.productResource import ProductResource
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
