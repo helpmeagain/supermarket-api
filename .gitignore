@@ -1,2 +1,5 @@
 /__pycache__
+/.vscode
+/model/__pycache__
+/controller/__pycache__
 instance
